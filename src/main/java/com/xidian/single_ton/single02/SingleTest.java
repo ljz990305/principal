@@ -9,7 +9,6 @@ public class SingleTest {
         SingleTon01 instance1 = SingleTon01.getInstance();
         SingleTon01 instance2 = SingleTon01.getInstance();
         System.out.println(instance1 == instance2);
-        System.out.println("sssssssssssss");
     }
 }
 
