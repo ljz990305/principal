@@ -28,7 +28,6 @@ class SingleTon01{
                 if(instance == null){
                     instance = new SingleTon01();
                 }
-                return instance;
             }
         }
         return instance;
