@@ -14,7 +14,7 @@ public class SingleTest {
 
 class SingleTon01{
     //私有静态常量
-    private static SingleTon01 instance;
+    private static final SingleTon01 instance;
     static {
         instance = new SingleTon01();
     }

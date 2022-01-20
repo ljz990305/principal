@@ -19,7 +19,6 @@ class SingleTon01{
     private SingleTon01(){
 
     }
-
     //给一个public的静态方法，作为访问instance的入口
     public static SingleTon01 getInstance(){
         return instance;
