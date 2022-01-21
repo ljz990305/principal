@@ -26,7 +26,6 @@ class SingleTon01{
 
     //给一个public的静态方法，作为访问instance的入口
     public static SingleTon01 getInstance(){
-        System.out.println("sssssssssssss");
         return instance;
     }
 
