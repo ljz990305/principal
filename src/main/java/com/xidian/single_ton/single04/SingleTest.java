@@ -1,5 +1,7 @@
 package com.xidian.single_ton.single04;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 /**
  * @author ljz990305
  * @create 2022-01-20 18:17
@@ -13,24 +15,21 @@ public class SingleTest {
 }
 
 class SingleTon01{
-    //私有静态常量
+    private static final AtomicReference<SingleTon01> INSTANCE = new AtomicReference<>();
     private static SingleTon01 instance;
-
-    //构造器私有化，防止外部new产生对象
     private SingleTon01(){
 
     }
 
     //给一个public的静态方法，作为访问instance的入口
     public static SingleTon01 getInstance(){
-        if(instance == null){
-            synchronized (SingleTon01.class){
-                if(instance == null){
-                    instance = new SingleTon01();
-                }
-            }
+        for (;;){
+            SingleTon01 instance = INSTANCE.get();
+            if(null != instance)
+                return instance;
+            INSTANCE.compareAndSet(null, new SingleTon01());
+            return INSTANCE.get();
         }
-        return instance;
     }
 
 }
