@@ -8,9 +8,9 @@ package com.xidian.prototype.clone3;
 import java.io.*;
 
 /**
- * 用序列化实现深拷贝
+ * 用序列化实现深拷贝，引用类型都是深拷贝（包括String）
  */
-public class TestClone implements Serializable{
+public class TestClone implements Serializable,Cloneable{
 
     String text;
     double salary;
@@ -55,6 +55,15 @@ public class TestClone implements Serializable{
                 '}';
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Object deep = null;
+        deep = super.clone();
+        TestClone testClone = (TestClone) deep;
+        testClone.address = (Address) address.clone();
+        return testClone;
+    }
+
     public Object deepClone()  {
         ByteArrayOutputStream bos = null;
         ObjectOutputStream oos = null;
@@ -86,15 +95,16 @@ public class TestClone implements Serializable{
 
     public static void main(String[] args) throws CloneNotSupportedException {
         TestClone testClone1 = new TestClone("text", 12.2, new Address(18, "ljz"));
-        TestClone testClone2 = (TestClone)testClone1.deepClone();
+        TestClone testClone2 = (TestClone)testClone1.clone();
         System.out.println(testClone1.text == testClone2.text);
         System.out.println(testClone1.address == testClone2.address);
+        System.out.println(testClone1.address.getName() == testClone2.address.getName());
         System.out.println(testClone1 == testClone2);
     }
 
 }
 
-class Address implements Serializable{
+class Address implements Serializable,Cloneable{
     int age;
     String name;
 
@@ -117,6 +127,11 @@ class Address implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     @Override
